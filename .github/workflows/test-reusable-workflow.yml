@@ -1,0 +1,51 @@
+name: Test reusable workflow
+on:
+  pull_request: {}
+  workflow_dispatch: {}
+
+jobs:
+  setup:
+    uses: ./.github/workflows/setup-test.yml
+    strategy:
+      matrix:
+        target: ["one", "two"]
+    with:
+      matrix-step-name: setup
+      matrix-key: ${{ matrix.target }}
+
+  test:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    needs: [setup]
+    steps:
+      - uses: actions/download-artifact@v8
+
+      - id: current
+        run: |-
+          echo "result=$(ls | wc -l)" >> $GITHUB_OUTPUT
+
+    outputs:
+      outcome: "${{ steps.current.outcome }}"
+      result: "${{ steps.current.outputs.result }}"
+
+  assert:
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - uses: nick-fields/assert-action@v4
+        with:
+          expected: '2'
+          actual: "${{ needs.test.outputs.result }}"
+
+      - uses: nick-fields/assert-action@v4
+        with:
+          expected: 'success'
+          actual: "${{ needs.test.outputs.outcome }}"
+
+  teardown:
+    runs-on: ubuntu-latest
+    needs: [assert]
+    if: ${{ always() }}
+    steps:
+      - name: Tear down
+        run: echo "Do Tear down"
