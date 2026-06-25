@@ -7,6 +7,11 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
+        with:
+          egress-policy: audit
+
       - name: Setup
         run: echo "Do setup"
 
@@ -15,8 +20,13 @@ jobs:
     continue-on-error: true
     needs: [setup]
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
+        with:
+          egress-policy: audit
+
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - uses: ./
         id: current
@@ -32,18 +42,23 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test]
     steps:
-      - uses: nick-fields/assert-action@v4
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
+        with:
+          egress-policy: audit
+
+      - uses: nick-fields/assert-action@0efd6166067d9c59d89c710fab4f79fb066f8985 # v4.0.1
         with:
           expected: '{"result":"one"}'
           actual: "${{ needs.test.outputs.result }}"
 
-      - uses: nick-fields/assert-action@v4
+      - uses: nick-fields/assert-action@0efd6166067d9c59d89c710fab4f79fb066f8985 # v4.0.1
         with:
           expected: 'success'
           actual: "${{ needs.test.outputs.outcome }}"
 
 
-      - uses: nick-fields/assert-action@v4
+      - uses: nick-fields/assert-action@0efd6166067d9c59d89c710fab4f79fb066f8985 # v4.0.1
         with:
           expected: 'one'
           actual: ${{ fromJson(needs.test.outputs.result).result }}
@@ -53,5 +68,10 @@ jobs:
     needs: [assert]
     if: ${{ always() }}
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
+        with:
+          egress-policy: audit
+
       - name: Tear down
         run: echo "Do Tear down"
