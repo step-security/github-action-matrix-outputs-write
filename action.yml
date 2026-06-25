@@ -1,6 +1,6 @@
 name: 'Matrix outputs - write (filtered)'
 description: 'Write outputs for matrix. Patched to filter artifact download.'
-author: codingsloth@pm.me
+author: 'step-security'
 branding:
   icon: 'chevrons-up'
   color: 'white'
@@ -18,5 +18,5 @@ outputs:
   result:
     description: "Outputs result (Deprecated!!!)"
 runs:
-  using: "node20"
-  main: "index.js"
+  using: "node24"
+  main: "dist/index.js"

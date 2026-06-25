@@ -1,10 +1,6 @@
 name: Test validation
 on:
-#  # Uncomment when test added first time to register workflow and comment it back after workflow would be registered
-#  #
-#  # Added pull_request to register workflow from the PR.
-#  # Read more https://stackoverflow.com/questions/63362126/github-actions-how-to-run-a-workflow-created-on-a-non-master-branch-from-the-wo
-#  pull_request: {}
+ pull_request: {}
   workflow_dispatch: {}
 
 jobs:
@@ -23,7 +19,7 @@ jobs:
     needs: [setup]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - uses: ./
         id: current
@@ -34,12 +30,12 @@ jobs:
             result: ${{ matrix.target }}
             test: comment: URL for deploy: https://frontend-docs-259.website.dev
 
-      - uses: nick-fields/assert-action@v2
+      - uses: nick-fields/assert-action@v4
         with:
           expected: ${{ matrix.target }}
           actual: ${{ fromJson(steps.writer.outputs.result).result }}
 
-      - uses: nick-fields/assert-action@v2
+      - uses: nick-fields/assert-action@v4
         with:
           expected: "comment: URL for deploy: https://frontend-docs-259.website.dev"
           actual: ${{ fromJson(steps.writer.outputs.result).test }}
@@ -51,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test]
     steps:
-      - uses: nick-fields/assert-action@v2
+      - uses: nick-fields/assert-action@v4
         with:
           expected: 'failure'
           actual: "${{ needs.test.outputs.result }}"
