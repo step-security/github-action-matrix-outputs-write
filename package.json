@@ -1,6 +1,7 @@
 {
   "name": "matrix-outputs-write",
   "version": "1.0.3",
+  "type": "module",
   "description": "Write outputs for matrix jobs with artifact support",
   "main": "index.js",
   "directories": {
@@ -21,12 +22,12 @@
   },
   "homepage": "https://github.com/step-security/github-action-matrix-outputs-write#readme",
   "dependencies": {
-    "@actions/artifact": "^2.0.0",
-    "@actions/core": "^1.10.0",
+    "@actions/artifact": "^6.0.0",
+    "@actions/core": "^2.0.0",
     "axios": "^1.6.0",
     "yaml": "^2.2.1"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.38.4"
+    "@vercel/ncc": "^0.44.0"
   }
 }

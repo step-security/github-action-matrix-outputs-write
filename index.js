@@ -1,9 +1,9 @@
-const core = require('@actions/core');
-const yaml = require('yaml')
-const {DefaultArtifactClient} = require('@actions/artifact')
-const crypto = require('crypto');
-const fs = require('fs');
-const axios = require('axios');
+import core from '@actions/core';
+import yaml from 'yaml';
+import {DefaultArtifactClient} from '@actions/artifact';
+import crypto from 'crypto';
+import fs from 'fs';
+import axios from 'axios';
 
 async function validateSubscription() {
   let repoPrivate;
@@ -132,4 +132,4 @@ ${error}`;
   }
 }
 
-run();
+await run();
