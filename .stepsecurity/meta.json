@@ -1,0 +1,18 @@
+{
+   "schema_version": "1",
+   "onboarding_type": "copied",
+   "archived": false,
+   "maintained_action_name": "step-security/github-action-matrix-outputs-write",
+   "upstream_full_repo_name": "gocodealone/github-action-matrix-outputs-write",
+   "action_type": "node",
+   "last_release": {
+     "tag_name": "v1.0.3",
+     "created_at": "2026-06-25T15:41:36Z",
+     "published_at": "2026-06-26T19:48:00Z"
+   },
+   "sync": {
+     "ignore_presets": [
+       "defaults_v1"
+     ]
+   }
+ }
