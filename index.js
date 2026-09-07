@@ -79,7 +79,7 @@ async function run() {
             yaml.parse(outputs)
         }
         catch (error) {
-            message = `Outputs should be valid YAML
+            const message = `Outputs should be valid YAML
 ---------------------
 ${outputs}
 ---------------------

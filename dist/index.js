@@ -97729,7 +97729,7 @@ async function run() {
             yaml__WEBPACK_IMPORTED_MODULE_1__.parse(outputs)
         }
         catch (error) {
-            message = `Outputs should be valid YAML
+            const message = `Outputs should be valid YAML
 ---------------------
 ${outputs}
 ---------------------
