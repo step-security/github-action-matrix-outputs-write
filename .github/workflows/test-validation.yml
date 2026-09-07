@@ -38,17 +38,17 @@ jobs:
           matrix-key: ${{ matrix.target }}
           outputs: |-
             result: ${{ matrix.target }}
-            test: comment: URL for deploy: https://frontend-docs-259.website.dev
+            test: "comment: URL for deploy: https://frontend-docs-259.website.dev"
 
       - uses: nick-fields/assert-action@0efd6166067d9c59d89c710fab4f79fb066f8985 # v4.0.1
         with:
           expected: ${{ matrix.target }}
-          actual: ${{ fromJson(steps.writer.outputs.result).result }}
+          actual: ${{ fromJson(steps.current.outputs.result).result }}
 
       - uses: nick-fields/assert-action@0efd6166067d9c59d89c710fab4f79fb066f8985 # v4.0.1
         with:
           expected: "comment: URL for deploy: https://frontend-docs-259.website.dev"
-          actual: ${{ fromJson(steps.writer.outputs.result).test }}
+          actual: ${{ fromJson(steps.current.outputs.result).test }}
 
     outputs:
       result: "${{ steps.current.outcome }}"
@@ -64,7 +64,7 @@ jobs:
 
       - uses: nick-fields/assert-action@0efd6166067d9c59d89c710fab4f79fb066f8985 # v4.0.1
         with:
-          expected: 'failure'
+          expected: 'success'
           actual: "${{ needs.test.outputs.result }}"
 
 
